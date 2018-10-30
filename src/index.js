@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useAppReducer from "./reducer";
 import ReactDOM from "react-dom";
+import { useAddress } from "./state/useAddress";
 
 import "./styles.css";
 
@@ -11,6 +12,17 @@ const tabs = [
   { label: "Emergency Kit", tabId: 4 }
 ];
 
+function TabButton({ isSelected, onClick, children }) {
+  return (
+    <button
+      className={`tab ${isSelected} ? "tab-selected" : ""`}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+}
+
 function Tab({ tabId, label }) {
   const [state, dispatch] = useAppReducer();
 
@@ -19,7 +31,14 @@ function Tab({ tabId, label }) {
     dispatch({ type: "selectTab", selectedTab: tabId });
   };
   console.log("state", state);
-  return <button onClick={() => handleClick(tabId)}>{label}</button>;
+  return (
+    <TabButton
+      isSelected={state.selectedTab === tabId}
+      onClick={() => handleClick(tabId)}
+    >
+      {label}
+    </TabButton>
+  );
 }
 
 function Tabs({ children }) {
@@ -38,22 +57,31 @@ function TabContent({ isVisible, children }) {
   }
 }
 
+function ContentContainer({ children }) {
+  return <div>{children}</div>;
+}
+
 function App() {
-  const [state] = useAppReducer();
-  console.log("stateeee", state);
+  let [appState] = useAppReducer();
+  let { line1, line2, line3, city, state, zipcode } = useAddress();
+
+  console.log("stateeee", line1);
   return (
     <>
       <Tabs />
-      <TabContent isVisible={state.selectedTab === 1}>
+      <TabContent isVisible={appState.selectedTab === 1}>
         Safepoint Location
+        <input type="text" {...line1} />
       </TabContent>
-      <TabContent isVisible={state.selectedTab === 2}>
+      <TabContent isVisible={appState.selectedTab === 2}>
         Safepoint Location2
       </TabContent>
-      <TabContent isVisible={state.selectedTab === 3}>
+      <TabContent isVisible={appState.selectedTab === 3}>
         Emergency Contact
       </TabContent>
-      <TabContent isVisible={state.selectedTab === 4}>Emergency Kit</TabContent>
+      <TabContent isVisible={appState.selectedTab === 4}>
+        Emergency Kit
+      </TabContent>
     </>
   );
 }

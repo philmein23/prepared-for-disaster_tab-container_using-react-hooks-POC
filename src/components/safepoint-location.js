@@ -1,16 +1,15 @@
 import React from "react";
 import { useAddress } from "../state/useAddress";
+import Input from "./input";
 
 export default function SafepointLocation() {
   let { line1, line2, line3, city, state, zipcode } = useAddress();
 
+  console.log(line1, line2, line3, city, state, zipcode);
   return (
     <form>
       <h1>Safepoint Location</h1>
-      <div>
-        <label htmlFor="line1">Line 1</label>
-        <input type="text" {...line1} />
-      </div>
+      <Input label={"Line 1"} type={"text"} {...line1} />
       <div>
         <label htmlFor="line2">Line 2</label>
         <input type="text" {...line2} />

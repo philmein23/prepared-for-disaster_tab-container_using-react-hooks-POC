@@ -1,3 +1,5 @@
+@import url("https://use.typekit.net/qmq0znp.css");
+
 body,
 html {
   height: 100%;
@@ -20,4 +22,19 @@ html {
   font-size: 1rem;
   text-transform: uppercase;
   cursor: pointer;
+  border-radius: 8px;
+}
+
+label {
+  display: block;
+  font-size: 0.8rem;
+}
+
+input {
+  line-height: 1.5rem;
+  font-size: 1rem;
+}
+
+.field {
+  margin-bottom: 0.7rem;
 }

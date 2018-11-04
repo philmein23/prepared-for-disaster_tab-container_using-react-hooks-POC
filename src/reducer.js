@@ -5,7 +5,16 @@ const initState = {
 };
 
 const reducer = (state = {}, action) => {
-  if (action.type === "selectTab") {
+  if (action.type === "SELECT_TAB") {
+    return { ...state, selectedTab: action.selectedTab };
+  }
+
+  if (action.type === "NEXT_TAB") {
+    console.log("here");
+    return { ...state, selectedTab: action.selectedTab };
+  }
+
+  if (action.type === "PREVIOUS_TAB") {
     return { ...state, selectedTab: action.selectedTab };
   }
 

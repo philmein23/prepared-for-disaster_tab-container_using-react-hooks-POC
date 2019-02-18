@@ -16,8 +16,6 @@ export function useAddress() {
   let state = useInputValue(initialAddress.state);
   let zipcode = useInputValue(initialAddress.zipcode);
 
-  console.log("address");
-
   return {
     addressLine1,
     addressLine2,

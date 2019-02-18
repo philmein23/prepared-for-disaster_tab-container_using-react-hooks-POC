@@ -2,14 +2,9 @@ import React, { useContext } from "react";
 import useAppReducer from "./reducer";
 import ReactDOM from "react-dom";
 import SafepointLocation from "./components/safepoint-location";
-import { Tabs, TabContent } from "./components/tabs/tabs";
+import { Tabs, TabContent, TabContainer } from "./components/tabs/tabs";
 
 import "./styles.css";
-
-export const TabSwitchContext = React.createContext({
-  state: null,
-  dispatch: () => {}
-});
 
 function ContentContainer({ children }) {
   return <div>{children}</div>;
@@ -19,7 +14,7 @@ function App() {
   let [appState, dispatch] = useAppReducer();
   console.log("app state", appState);
   return (
-    <TabSwitchContext.Provider value={{ appState, dispatch }}>
+    <TabContainer dispatch={dispatch} appState={appState}>
       <Tabs />
       <TabContent isVisible={appState.selectedTab === 1}>
         <SafepointLocation />
@@ -60,7 +55,7 @@ function App() {
           Previous
         </button>
       </div>
-    </TabSwitchContext.Provider>
+    </TabContainer>
   );
 }
 

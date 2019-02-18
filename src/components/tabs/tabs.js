@@ -11,15 +11,14 @@ const tabs = [
 ];
 
 function Tab({ tabId, label }) {
-
-  const context = useContext(TabSwitchContext);
+  const { appState, dispatch } = useContext(TabSwitchContext);
 
   const handleClick = tabId => {
-    context.dispatch({ type: "SELECT_TAB", selectedTab: tabId });
+    dispatch({ type: "SELECT_TAB", selectedTab: tabId });
   };
   return (
     <TabButton
-      isSelected={context.appState.selectedTab === tabId}
+      isSelected={appState.selectedTab === tabId}
       onClick={() => handleClick(tabId)}
     >
       {label}

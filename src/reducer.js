@@ -10,7 +10,6 @@ const reducer = (state = {}, action) => {
   }
 
   if (action.type === "NEXT_TAB") {
-    console.log("here");
     return { ...state, selectedTab: action.selectedTab };
   }
 

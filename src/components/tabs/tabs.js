@@ -1,5 +1,7 @@
-import React from "react";
+
+import React, { useContext } from "react";
 import useAppReducer from "../../reducer";
+import { TabSwitchContext } from "../../index";
 
 const tabs = [
   { label: "Safepoint Location", tabId: 1 },
@@ -9,15 +11,15 @@ const tabs = [
 ];
 
 function Tab({ tabId, label }) {
-  const [state, dispatch] = useAppReducer();
+
+  const context = useContext(TabSwitchContext);
 
   const handleClick = tabId => {
-    console.log("click");
-    dispatch({ type: "SELECT_TAB", selectedTab: tabId });
+    context.dispatch({ type: "SELECT_TAB", selectedTab: tabId });
   };
   return (
     <TabButton
-      isSelected={state.selectedTab === tabId}
+      isSelected={context.appState.selectedTab === tabId}
       onClick={() => handleClick(tabId)}
     >
       {label}

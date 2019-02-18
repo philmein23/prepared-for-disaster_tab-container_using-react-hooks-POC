@@ -5,6 +5,7 @@ html {
   font-family: proxima-nova, sans-serif;
   background: rgb(237, 235, 235, 100%);
 }
+
 .App {
   font-family: "Proxima Nova", sans-serif;
   text-align: center;
@@ -20,4 +21,19 @@ html {
   font-size: 1rem;
   text-transform: uppercase;
   cursor: pointer;
+  border-radius: 8px;
+}
+
+label {
+  display: block;
+  font-size: 0.9rem;
+}
+
+input {
+  line-height: 1.5rem;
+  border: 1px solid #000;
+}
+
+.field {
+  margin-bottom: 0.7rem;
 }

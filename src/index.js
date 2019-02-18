@@ -1,89 +1,28 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import useAppReducer from "./reducer";
 import ReactDOM from "react-dom";
-import { useAsyncCallback } from "./state/useAsyncCallback";
 import SafepointLocation from "./components/safepoint-location";
+import { Tabs, TabContent } from "./components/tabs/tabs";
 
 import "./styles.css";
 
-const tabs = [
-  { label: "Safepoint Location", tabId: 1 },
-  { label: "Safepoint Location 2 ", tabId: 2 },
-  { label: "Emergency Contact", tabId: 3 },
-  { label: "Emergency Kit", tabId: 4 }
-];
-
-function TabButton({ isSelected, onClick, children }) {
-  return (
-    <button
-      className={`tab ${isSelected} ? "tab-selected" : ""`}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
-}
-
-function Tab({ tabId, label }) {
-  const [state, dispatch] = useAppReducer();
-
-  const handleClick = tabId => {
-    console.log("click");
-    dispatch({ type: "selectTab", selectedTab: tabId });
-  };
-  console.log("state", state);
-  return (
-    <TabButton
-      isSelected={state.selectedTab === tabId}
-      onClick={() => handleClick(tabId)}
-    >
-      {label}
-    </TabButton>
-  );
-}
-
-function Tabs() {
-  return tabs.map(tab => {
-    return <Tab label={tab.label} tabId={tab.tabId} />;
-  });
-}
-
-function TabContent({ isVisible, children }) {
-  if (!isVisible) {
-    return <div>{null}</div>;
-  }
-
-  if (isVisible) {
-    return <div>{children}</div>;
-  }
-}
-
-function MyAsyncButton(props) {
-  let [onClick, { loading, error }] = useAsyncCallback(props.onClick);
-
-  console.log("render", loading, error);
-
-  return (
-    <div>
-      {error && <span>{error}</span>}
-      <button onClick={onClick}>{loading ? "Saving..." : "Save"}</button>
-    </div>
-  );
-}
+export const TabSwitchContext = React.createContext({
+  state: null,
+  dispatch: () => {}
+});
 
 function ContentContainer({ children }) {
   return <div>{children}</div>;
 }
 
 function App() {
-  let [appState] = useAppReducer();
-
+  let [appState, dispatch] = useAppReducer();
+  console.log("app state", appState);
   return (
-    <>
+    <TabSwitchContext.Provider value={{ appState, dispatch }}>
       <Tabs />
       <TabContent isVisible={appState.selectedTab === 1}>
         <SafepointLocation />
-        <MyAsyncButton onClick={() => Promise.resolve({ resolved: true })} />
       </TabContent>
       <TabContent isVisible={appState.selectedTab === 2}>
         Safepoint Location2
@@ -95,7 +34,33 @@ function App() {
       <TabContent isVisible={appState.selectedTab === 4}>
         Emergency Kit
       </TabContent>
-    </>
+      <div>
+        <button
+          disabled={appState.selectedTab === 4}
+          type="button"
+          onClick={() =>
+            dispatch({
+              type: "NEXT_TAB",
+              selectedTab: appState.selectedTab + 1
+            })
+          }
+        >
+          Next
+        </button>
+        <button
+          disabled={appState.selectedTab === 1}
+          type="button"
+          onClick={() =>
+            dispatch({
+              type: "PREVIOUS_TAB",
+              selectedTab: appState.selectedTab - 1
+            })
+          }
+        >
+          Previous
+        </button>
+      </div>
+    </TabSwitchContext.Provider>
   );
 }
 

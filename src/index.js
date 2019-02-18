@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import React from "react";
 import useAppReducer from "./reducer";
 import ReactDOM from "react-dom";
 import SafepointLocation from "./components/safepoint-location";

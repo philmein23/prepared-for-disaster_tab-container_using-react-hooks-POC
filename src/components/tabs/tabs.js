@@ -1,3 +1,4 @@
+
 import React, { useContext } from "react";
 import useAppReducer from "../../reducer";
 import { TabSwitchContext } from "../../index";
@@ -10,6 +11,7 @@ const tabs = [
 ];
 
 function Tab({ tabId, label }) {
+
   const context = useContext(TabSwitchContext);
 
   const handleClick = tabId => {

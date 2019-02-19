@@ -15,15 +15,25 @@ html {
 
 .tab {
   border: none;
-  background: #000;
-  padding: 0.8rem 1rem;
-  color: #fff;
-  margin-right: 0.5rem;
+  padding: 1rem 1rem;
+  color: #2a2a2a;
   letter-spacing: 1px;
   font-size: 1rem;
   text-transform: uppercase;
+  background: #fff;
   cursor: pointer;
-  border-radius: 8px;
+}
+
+.tab:hover {
+  border-bottom: 3px solid #adadad;
+}
+
+.tab-selected {
+  border-bottom: 3px solid #2a2a2a;
+}
+
+.tab-unselected {
+  border-bottom: 1px solid #adadad;
 }
 
 label {

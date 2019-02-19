@@ -32,7 +32,7 @@ function Tab({ tabId, label }) {
 function TabButton({ isSelected, onClick, children }) {
   return (
     <button
-      className={`tab ${isSelected} ? "tab-selected" : ""`}
+      className={isSelected ? "tab tab-selected" : "tab tab-unselected"}
       onClick={onClick}
     >
       {children}

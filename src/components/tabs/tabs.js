@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
-import useAppReducer from "../../reducer";
-import { TabSwitchContext } from "../../index";
+
+export const TabSwitchContext = React.createContext({
+  appState: null,
+  dispatch: () => {}
+});
 
 const tabs = [
   { label: "Safepoint Location", tabId: 1 },
@@ -28,7 +31,7 @@ function Tab({ tabId, label }) {
 function TabButton({ isSelected, onClick, children }) {
   return (
     <button
-      className={`tab ${isSelected} ? "tab-selected" : ""`}
+      className={isSelected ? "tab tab-selected" : "tab tab-unselected"}
       onClick={onClick}
     >
       {children}
@@ -50,4 +53,12 @@ export function TabContent({ isVisible, children }) {
   if (isVisible) {
     return <div>{children}</div>;
   }
+}
+
+export function TabContainer({ children, dispatch, appState }) {
+  return (
+    <TabSwitchContext.Provider value={{ dispatch, appState }}>
+      {children}
+    </TabSwitchContext.Provider>
+  );
 }

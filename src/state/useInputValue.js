@@ -7,8 +7,6 @@ export function useInputValue(initialValue) {
     setValue(event.target.value);
   }
 
-  console.log("value", value);
-
   return {
     value,
     onChange
